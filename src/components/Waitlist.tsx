@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Mail } from "lucide-react";
+import { Mail, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Waitlist = () => {
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!email || !email.includes('@')) {
@@ -16,12 +18,36 @@ export const Waitlist = () => {
       return;
     }
 
-    // Aqui você integraria com sua API/banco de dados
-    console.log("Email submitted:", email);
-    
-    setIsSubmitted(true);
-    toast.success("Você está na lista! Em breve avisaremos quando o Glowhora estiver disponível.");
-    setEmail("");
+    setIsLoading(true);
+
+    try {
+      const { data, error } = await supabase.functions.invoke('enviar-email-lista-espera', {
+        body: { email }
+      });
+
+      if (error) {
+        console.error("Erro ao enviar:", error);
+        
+        // Verificar se é erro de duplicação
+        if (error.message?.includes("já está na lista")) {
+          toast.error("Você já está na lista!");
+        } else {
+          toast.error("Ops! Algo deu errado. Tente novamente mais tarde.");
+        }
+        return;
+      }
+
+      console.log("Resposta da função:", data);
+      
+      setIsSubmitted(true);
+      toast.success("Perfeito! Você entrou na lista de espera. Em breve receberá novidades por e-mail.");
+      setEmail("");
+    } catch (error: any) {
+      console.error("Erro:", error);
+      toast.error("Ops! Algo deu errado. Tente novamente mais tarde.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -59,9 +85,17 @@ export const Waitlist = () => {
               <Button 
                 type="submit"
                 size="lg"
+                disabled={isLoading}
                 className="gradient-primary text-white hover:opacity-90 transition-opacity h-12 px-8 glow-effect"
               >
-                Quero ser avisado
+                {isLoading ? (
+                  <>
+                    <Loader2 className="h-5 w-5 animate-spin" />
+                    Enviando...
+                  </>
+                ) : (
+                  "Quero ser avisado"
+                )}
               </Button>
             </form>
           ) : (

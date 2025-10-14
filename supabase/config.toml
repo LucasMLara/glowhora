@@ -1,1 +1,4 @@
 project_id = "xwpxjteeftjwoisaadpq"
+
+[functions.enviar-email-lista-espera]
+verify_jwt = false
