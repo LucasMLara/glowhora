@@ -1,11 +1,6 @@
-import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
 
 export const Waitlist = () => {
-  const handleJoinWaitlist = () => {
-    window.open("https://forms.gle/eFP9pwNorfPo7A1n7", "_blank");
-  };
-
   return (
     <section id="waitlist" className="py-24 relative overflow-hidden">
       {/* Background gradient */}
@@ -30,14 +25,15 @@ export const Waitlist = () => {
           className="max-w-md mx-auto animate-fade-up"
           style={{ animationDelay: "200ms" }}
         >
-          <Button
-            onClick={handleJoinWaitlist}
-            size="lg"
-            className="gradient-primary text-white hover:opacity-90 transition-opacity h-12 px-8 glow-effect w-full sm:w-auto mx-auto flex items-center gap-2"
+          <a
+            href="https://forms.gle/eFP9pwNorfPo7A1n7"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="gradient-primary text-white hover:opacity-90 transition-opacity h-12 px-8 glow-effect w-full sm:w-auto mx-auto flex items-center justify-center gap-2 rounded-lg"
           >
             Quero ser avisado
             <ExternalLink className="h-5 w-5" />
-          </Button>
+          </a>
         </div>
 
         <div className="mt-12 text-center text-sm text-muted-foreground">
