@@ -17,15 +17,16 @@ export const Footer = () => {
             <a href="#" className="hover:text-primary transition-colors">
               Termos de Uso
             </a>
-            <a href="#waitlist" className="hover:text-primary transition-colors">
-              Lista de Espera
-            </a>
           </div>
         </div>
 
         <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} Glowhora. Todos os direitos reservados.</p>
-          <p className="mt-2">Feito com 💜 para profissionais que valorizam seu tempo</p>
+          <p>
+            © {new Date().getFullYear()} Glowhora. Todos os direitos reservados.
+          </p>
+          <p className="mt-2">
+            Feito com 💜 para profissionais que valorizam seu tempo
+          </p>
         </div>
       </div>
     </footer>

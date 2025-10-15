@@ -3,7 +3,7 @@ import { ExternalLink } from "lucide-react";
 
 export const Waitlist = () => {
   const handleJoinWaitlist = () => {
-    window.open("https://forms.google.com/YOUR_FORM_ID", "_blank");
+    window.open("https://forms.gle/eFP9pwNorfPo7A1n7", "_blank");
   };
 
   return (
@@ -21,12 +21,16 @@ export const Waitlist = () => {
             <span className="gradient-text">mensagens e planilhas</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-            Faça parte dos primeiros a testar o Glowhora e revolucione a forma como você gerencia seus agendamentos.
+            Faça parte dos primeiros a testar o Glowhora e revolucione a forma
+            como você gerencia seus agendamentos.
           </p>
         </div>
 
-        <div className="max-w-md mx-auto animate-fade-up" style={{ animationDelay: "200ms" }}>
-          <Button 
+        <div
+          className="max-w-md mx-auto animate-fade-up"
+          style={{ animationDelay: "200ms" }}
+        >
+          <Button
             onClick={handleJoinWaitlist}
             size="lg"
             className="gradient-primary text-white hover:opacity-90 transition-opacity h-12 px-8 glow-effect w-full sm:w-auto mx-auto flex items-center gap-2"
