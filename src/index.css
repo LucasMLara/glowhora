@@ -143,3 +143,13 @@ All colors MUST be HSL.
     }
   }
 }
+
+::selection {
+  background: hsl(217 91% 60% / 0.3);
+  color: hsl(217 91% 60%);
+}
+
+::-moz-selection {
+  background: hsl(217 91% 60% / 0.3);
+  color: hsl(217 91% 60%);
+}
