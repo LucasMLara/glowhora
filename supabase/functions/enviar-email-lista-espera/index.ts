@@ -21,7 +21,7 @@ async function sendEmail(to: string | string[], subject: string, html: string) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: "Glowhora <no-reply@glowhora.com>",
+      from: "Glowhora <onboarding@resend.dev>",
       to: Array.isArray(to) ? to : [to],
       subject,
       html,
