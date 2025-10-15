@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.png";
 
 export const Header = () => {
-  const scrollToWaitlist = () => {
-    document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -16,19 +16,28 @@ export const Header = () => {
           </div>
 
           <nav className="hidden md:flex items-center gap-8">
-            <a href="#sobre" className="text-sm font-medium hover:text-primary transition-colors">
+            <button 
+              onClick={() => scrollToSection('sobre')} 
+              className="text-sm font-medium hover:text-primary transition-colors"
+            >
               Sobre
-            </a>
-            <a href="#como-funciona" className="text-sm font-medium hover:text-primary transition-colors">
+            </button>
+            <button 
+              onClick={() => scrollToSection('como-funciona')} 
+              className="text-sm font-medium hover:text-primary transition-colors"
+            >
               Como funciona
-            </a>
-            <a href="#funcionalidades" className="text-sm font-medium hover:text-primary transition-colors">
+            </button>
+            <button 
+              onClick={() => scrollToSection('funcionalidades')} 
+              className="text-sm font-medium hover:text-primary transition-colors"
+            >
               Funcionalidades
-            </a>
+            </button>
           </nav>
 
           <Button 
-            onClick={scrollToWaitlist}
+            onClick={() => scrollToSection('waitlist')}
             className="gradient-primary text-white hover:opacity-90 transition-opacity"
           >
             Entrar na lista
