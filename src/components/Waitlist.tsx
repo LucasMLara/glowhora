@@ -1,53 +1,9 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Mail, Loader2 } from "lucide-react";
-import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
+import { ExternalLink } from "lucide-react";
 
 export const Waitlist = () => {
-  const [email, setEmail] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!email || !email.includes('@')) {
-      toast.error("Por favor, insira um e-mail válido");
-      return;
-    }
-
-    setIsLoading(true);
-
-    try {
-      const { data, error } = await supabase.functions.invoke('enviar-email-lista-espera', {
-        body: { email }
-      });
-
-      if (error) {
-        console.error("Erro ao enviar:", error);
-        
-        // Verificar se é erro de duplicação
-        if (error.message?.includes("já está na lista")) {
-          toast.error("Você já está na lista!");
-        } else {
-          toast.error("Ops! Algo deu errado. Tente novamente mais tarde.");
-        }
-        return;
-      }
-
-      console.log("Resposta da função:", data);
-      
-      setIsSubmitted(true);
-      toast.success("Perfeito! Você entrou na lista de espera. Em breve receberá novidades por e-mail.");
-      setEmail("");
-    } catch (error: any) {
-      console.error("Erro:", error);
-      toast.error("Ops! Algo deu errado. Tente novamente mais tarde.");
-    } finally {
-      setIsLoading(false);
-    }
+  const handleJoinWaitlist = () => {
+    window.open("https://forms.google.com/YOUR_FORM_ID", "_blank");
   };
 
   return (
@@ -70,45 +26,14 @@ export const Waitlist = () => {
         </div>
 
         <div className="max-w-md mx-auto animate-fade-up" style={{ animationDelay: "200ms" }}>
-          {!isSubmitted ? (
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
-              <div className="relative flex-1">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                <Input 
-                  type="email" 
-                  placeholder="Digite seu e-mail"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="pl-10 h-12 text-lg border-2"
-                />
-              </div>
-              <Button 
-                type="submit"
-                size="lg"
-                disabled={isLoading}
-                className="gradient-primary text-white hover:opacity-90 transition-opacity h-12 px-8 glow-effect"
-              >
-                {isLoading ? (
-                  <>
-                    <Loader2 className="h-5 w-5 animate-spin" />
-                    Enviando...
-                  </>
-                ) : (
-                  "Quero ser avisado"
-                )}
-              </Button>
-            </form>
-          ) : (
-            <div className="p-8 rounded-2xl bg-gradient-to-br from-primary/10 to-secondary/10 border-2 border-primary/20 text-center">
-              <div className="w-16 h-16 rounded-full gradient-primary flex items-center justify-center mx-auto mb-4">
-                <Mail className="h-8 w-8 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-2">Você está na lista!</h3>
-              <p className="text-muted-foreground">
-                Em breve, avisaremos quando o Glowhora estiver disponível.
-              </p>
-            </div>
-          )}
+          <Button 
+            onClick={handleJoinWaitlist}
+            size="lg"
+            className="gradient-primary text-white hover:opacity-90 transition-opacity h-12 px-8 glow-effect w-full sm:w-auto mx-auto flex items-center gap-2"
+          >
+            Quero ser avisado
+            <ExternalLink className="h-5 w-5" />
+          </Button>
         </div>
 
         <div className="mt-12 text-center text-sm text-muted-foreground">
