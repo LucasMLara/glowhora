@@ -7,22 +7,22 @@ export const ScrollProgress = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      const scrollTop = window.scrollY;
-      const scrollableHeight = documentHeight - windowHeight;
-      
-      // Evita divisão por zero e valores inválidos
-      const progress = scrollableHeight > 0 ? Math.min((scrollTop / scrollableHeight) * 100, 100) : 0;
+      requestAnimationFrame(() => {
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        const scrollTop = window.scrollY;
+        const scrollableHeight = documentHeight - windowHeight;
+        
+        const progress = scrollableHeight > 0 ? Math.min((scrollTop / scrollableHeight) * 100, 100) : 0;
 
-      setScrollProgress(progress);
-      setShowButton(progress > 80);
+        setScrollProgress(progress);
+        setShowButton(progress > 80);
+      });
     };
 
-    // Calcula o progresso inicial
     handleScroll();
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -34,8 +34,11 @@ export const ScrollProgress = () => {
     <>
       <div className="fixed top-16 left-0 right-0 z-40 h-1 bg-transparent">
         <div
-          className="h-full gradient-primary transition-all duration-300"
-          style={{ width: `${scrollProgress}%` }}
+          className="h-full gradient-primary"
+          style={{ 
+            width: `${scrollProgress}%`,
+            transition: 'width 0.1s linear'
+          }}
         />
       </div>
 
