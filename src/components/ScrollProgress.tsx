@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Progress } from "@/components/ui/progress";
 import { ArrowUp } from "lucide-react";
 
 export const ScrollProgress = () => {
@@ -33,8 +32,11 @@ export const ScrollProgress = () => {
 
   return (
     <>
-      <div className="fixed top-16 left-0 right-0 z-40 h-1">
-        <Progress value={scrollProgress} className="h-full rounded-none" />
+      <div className="fixed top-16 left-0 right-0 z-40 h-1 bg-transparent">
+        <div
+          className="h-full gradient-primary transition-all duration-300"
+          style={{ width: `${scrollProgress}%` }}
+        />
       </div>
 
       {showButton && (
