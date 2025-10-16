@@ -6,11 +6,13 @@ import { Features } from "@/components/Features";
 import { Roadmap } from "@/components/Roadmap";
 import { Waitlist } from "@/components/Waitlist";
 import { Footer } from "@/components/Footer";
+import { ScrollProgress } from "@/components/ScrollProgress";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
       <Header />
+      <ScrollProgress />
       <main>
         <Hero />
         <div id="sobre">
