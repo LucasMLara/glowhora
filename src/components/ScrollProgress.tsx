@@ -12,11 +12,16 @@ export const ScrollProgress = () => {
       const documentHeight = document.documentElement.scrollHeight;
       const scrollTop = window.scrollY;
       const scrollableHeight = documentHeight - windowHeight;
-      const progress = (scrollTop / scrollableHeight) * 100;
+      
+      // Evita divisão por zero e valores inválidos
+      const progress = scrollableHeight > 0 ? Math.min((scrollTop / scrollableHeight) * 100, 100) : 0;
 
       setScrollProgress(progress);
       setShowButton(progress > 80);
     };
+
+    // Calcula o progresso inicial
+    handleScroll();
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
